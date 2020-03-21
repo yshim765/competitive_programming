@@ -1,0 +1,11 @@
+import math
+ 
+a, b, c = input().split()
+a, b, c = int(a), int(b), int(c)
+
+d = c - a - b
+
+if (4*a*b < d * d) and d > 0:
+  print("Yes")
+else:
+  print("No")
