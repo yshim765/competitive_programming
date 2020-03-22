@@ -1,4 +1,10 @@
-n, m = input().split()
-n, m = int(n), int(m)
+#%%
 
-print()
+l = 999
+
+#%%
+l = int(input())
+
+print((l / 3) ** 3)
+
+# %%
