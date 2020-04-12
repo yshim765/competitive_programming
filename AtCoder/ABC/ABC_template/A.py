@@ -1,8 +1,6 @@
 #%%
-n, m = input().split()
-n, m = int(n), int(m)
+n, m = map(int,input().split())
 
-x = input().split()
-x = [int(x) for x in x]
+x = list(map(int,input().split()))
 
 # %%
