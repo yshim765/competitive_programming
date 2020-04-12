@@ -3,7 +3,7 @@ n, m = input().split()
 n, m = int(n), int(m)
 
 x = input().split()
-x = [int(X) for x in x]
+x = [int(x) for x in x]
 
 #%%
 
