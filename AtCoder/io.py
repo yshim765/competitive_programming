@@ -2,8 +2,10 @@
 a = int(input())
 
 # 数字複数
-a, b, c = input().split()
-a, b, c = int(a), int(b), int(c)
+n, m = map(int,input().split())
+
+# 1列をリストとして読み込む
+x = list(map(int,input().split()))
 
 # 出力
 print(a)
