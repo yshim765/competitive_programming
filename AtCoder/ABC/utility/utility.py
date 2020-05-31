@@ -78,3 +78,49 @@ for i in range(len(l)-2, -1, -1):
 print(reverse_cumsum_l)
 
 # %%
+# 素因数分解をする
+# 返り値は [[素因数1, 素因数1の数], [素因数2, 素因数2の数], ...]
+# n = 2 -> prime_factor = [[2, 1]]
+# n = 120 -> prime_factor = [[2, 3], [3, 1], [5, 1]]
+# n = 1 -> prime_factor = []
+
+def factorization(n):
+    arr = []
+    temp = n
+
+    for i in range(2, int(-(-n**0.5//1))+1):
+        if temp%i==0:
+            cnt=0
+            while temp%i==0:
+                cnt+=1
+                temp //= i
+            arr.append([i, cnt])
+
+    if temp > 1:
+        arr.append([temp, 1])
+
+    return arr
+
+n = 120
+
+prime_factor = factorization(n)
+
+print(n)
+print(prime_factor)
+
+# %%
+# 正の整数に対する math を使わない切り捨て、切り上げ
+
+n = 1.5
+
+# 切り捨て
+n_floor = int(n)
+
+print(n_floor)
+
+# 切り上げ
+n_ceil = int(-(-n//1))
+
+print(n_ceil)
+
+# %%
