@@ -78,6 +78,75 @@ for i in range(len(l)-2, -1, -1):
 print(reverse_cumsum_l)
 
 # %%
+# いもす法による要素の重なりの計算
+# 複数の矩形関数を足した和を計算する時に使う
+
+# 1次元配列の場合
+# 初期値がすべて 0 の 10個の範囲を考える [0 0 0 0 0 0 0 0 0 0]
+# これに、次の3つの値を足す
+# [1 1 1 0 0 0 0 0 0 0]
+# [0 0 0 0 1 1 1 1 0 0]
+# [0 0 0 0 0 1 1 1 1 1]
+# 愚直にやると3 * 10 回計算が必要だが、いもす法を使うと 3*2 + 10 回の計算で済む
+
+n = 10
+
+start = [0, 4, 5]
+end = [2, 7, 9]
+
+
+arr = [0] * n
+
+for i in range(len(start)):
+    arr[max(0, start[i])] += 1
+    
+    if end[i] + 1 < n:
+        arr[end[i] + 1] -= 1
+
+for i in range(len(arr) - 1):
+    arr[i + 1] += arr[i]
+
+print(arr)
+
+#%%
+
+# 2次元配列の場合
+# 愚直にやると3 * 6 * 10 回計算が必要だが、いもす法を使うと 3*4 + 6*10 回の計算で済む
+# 座標は[x, y]で入っているものとする
+
+n_y = 6
+n_x = 6
+
+start = [[0, 0], [2, 2], [1, 3]]
+end = [[3, 3], [5, 5], [2, 4]]
+
+
+arr = [[0] * n_x for _ in range(n_y)]
+
+for i in range(len(start)):
+    arr[max(0, start[i][1])][max(0, start[i][0])] += 1
+
+    if end[i][0] + 1 < n_x:
+        arr[max(0, start[i][1])][end[i][0] + 1] -= 1
+
+    if end[i][1] + 1 < n_y:
+        arr[end[i][1] + 1][max(0, start[i][0])] -= 1
+
+    if (end[i][0] + 1 < n_x) and (end[i][1] + 1 < n_y):
+        arr[end[i][1] + 1][end[i][0] + 1] += 1
+
+for y in range(n_y):
+    for x in range(1, n_x):
+      arr[y][x] += arr[y][x - 1]
+
+for y in range(1, n_y):
+    for x in range(n_x):
+      arr[y][x] += arr[y - 1][x]
+
+for temp in arr:
+    print(temp)
+
+# %%
 # 素因数分解をする
 # 返り値は [[素因数1, 素因数1の数], [素因数2, 素因数2の数], ...]
 # n = 2 -> prime_factor = [[2, 1]]
@@ -122,5 +191,3 @@ print(n_floor)
 n_ceil = int(-(-n//1))
 
 print(n_ceil)
-
-# %%
