@@ -193,3 +193,28 @@ print(n_floor)
 n_ceil = int(-(-n//1))
 
 print(n_ceil)
+
+# %%
+# エラトステネスの篩的なアルゴリズム
+# あるリストの中で、リスト中の別の値で割り切れない値を抽出する
+# 2 以降の整数のリストを渡すとエラトステネスの篩になる
+# [2, 3, 4, 5, 7, 11, 12, 15, 21, 23] のリストでは [2, 3, 5, 7, 11, 23] が得られる
+# リストは重複せず、ソートされた状態を想定
+
+A = [2, 3, 4, 5, 7, 11, 12, 15, 21, 23]
+
+max_a = A[-1]
+is_available = [True] * (max_a + 1)
+
+result = []
+
+for a in A:
+    if is_available[a]:
+        result.append(a)
+
+        for b in range(a, max_a + 1, a):
+            is_available[b] = False
+
+print(result)
+
+# %%
