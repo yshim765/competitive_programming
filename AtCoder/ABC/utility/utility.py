@@ -343,3 +343,120 @@ for n in n_list:
 
 
 # %%
+# 2進数の計算
+
+# %%
+# 2進数への変換
+x = 11
+
+bin(x)
+
+# %%
+# 左シフト
+x = 11
+n = 2 # シフトさせる桁数
+
+bin(x << n)
+
+# %%
+# 右シフト
+x = 11
+n = 2 # シフトさせる桁数
+
+bin(x >> n)
+
+# %%
+# python では数値に &, |, ^ を作用させるとビット演算として処理される
+
+# 論理積 (AND, &)
+
+x_1 = 10
+x_2 = 12
+
+print(bin(x_1), bin(x_2))
+print()
+
+print(bin(x_1 & x_2))
+print(x_1 & x_2)
+
+# %%
+# 論理和 (OR, |)
+
+x_1 = 10
+x_2 = 12
+
+print(bin(x_1), bin(x_2))
+print()
+
+print(bin(x_1 | x_2))
+print(x_1 | x_2)
+
+# %%
+# 排他的論理和 (XOR, ^)
+
+x_1 = 10
+x_2 = 12
+
+print(bin(x_1), bin(x_2))
+print()
+
+print(bin(x_1 ^ x_2))
+print(x_1 ^ x_2)
+
+# %%
+# 否定、ビット反転 (NOT, ~)
+# python では 2進数は上位の桁が0になっているとみなす
+# そのため、101 を反転すると ...111111010 みたいになる
+# これは補数なので-(x+1)で表現される
+
+x = 10
+
+print(bin(x))
+print()
+
+print(bin(~x))
+print(~x)
+
+# %%
+# ふつうにビット反転する
+def int_reverse(num):
+    num_len = len(bin(num))-2
+    f = 2**num_len-1
+    return num ^ f
+
+x = 10
+
+print(bin(x))
+print()
+
+print(bin(int_reverse(x)))
+print(int_reverse(x))
+
+# %%
+# 特定の桁だけ反転する
+
+x = 10
+
+print(bin(x))
+print()
+
+def part_reverse(num, a, b):
+    """
+    a桁 以上 b桁 以下を反転する
+    101100, a=2, b=4 -> 100010
+    """
+    x = 0
+
+    for i in range(a, b+1):
+        x += 2**(i - 1)
+
+    return num ^ x
+
+print(bin(part_reverse(x, 2, 3)))
+print(part_reverse(x, 2, 3))
+
+
+
+
+
+# %%
