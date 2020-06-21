@@ -10,6 +10,10 @@ num_dict = dict(collections.Counter(temp))
 
 print(num_dict)
 
+
+
+
+
 # %%
 # 2つの数の最大公約数(greatest common divisor)を求める
 # 3つの場合でも、gcd(a, gcd(b, c))みたいにして求める
@@ -20,6 +24,10 @@ def gcd(a, b):
         return(a)
     
     return gcd(b, a % b)
+
+
+
+
 
 
 # %%
@@ -35,6 +43,10 @@ def gcd(a, b):
 def lcm(a, b):
     return a * b / gcd(a, b)
 
+
+
+
+
 # %%
 # 重複組み合わせを全列挙する
 # [1, 1, 1], [1, 1, 2], [1, 1, 3], [1, 2, 2], [1, 2, 3],
@@ -48,6 +60,10 @@ m = 5
 
 for l in itertools.combinations_with_replacement([x for x in range(1, m + 1)], n):
     print(l)
+
+
+
+
 
 # %%
 # cumsum
@@ -63,6 +79,10 @@ for i in range(len(l) - 1):
 
 print(cumsum_l)
 
+
+
+
+
 #%%
 # reverse_cumsum
 # それ以降の総和を求める
@@ -76,6 +96,10 @@ for i in range(len(l)-2, -1, -1):
     reverse_cumsum_l[i] += reverse_cumsum_l[i+1]
 
 print(reverse_cumsum_l)
+
+
+
+
 
 # %%
 # いもす法による要素の重なりの計算
@@ -109,6 +133,10 @@ for i in range(len(arr) - 1):
     arr[i + 1] += arr[i]
 
 print(arr)
+
+
+
+
 
 #%%
 
@@ -148,6 +176,10 @@ for y in range(1, n_y):
 for temp in arr:
     print(temp)
 
+
+
+
+
 # %%
 # 素因数分解をする
 # 返り値は [[素因数1, 素因数1の数], [素因数2, 素因数2の数], ...]
@@ -172,12 +204,17 @@ def factorization(n):
 
     return arr
 
+# ex
 n = 120
 
 prime_factor = factorization(n)
 
 print(n)
 print(prime_factor)
+
+
+
+
 
 # %%
 # 正の整数に対する math を使わない切り捨て、切り上げ
@@ -193,6 +230,10 @@ print(n_floor)
 n_ceil = int(-(-n//1))
 
 print(n_ceil)
+
+
+
+
 
 # %%
 # エラトステネスの篩的なアルゴリズム
@@ -216,5 +257,89 @@ for a in A:
             is_available[b] = False
 
 print(result)
+
+
+
+
+
+# %%
+# 重複組み合わせを 10**9+7 で割った余りを求める
+# https://qiita.com/derodero24/items/91b6468e66923a87f39f
+
+def cmb(n, r, mod):
+    if ( r<0 or r>n ):
+        return 0
+    r = min(r, n-r)
+    return g1[n] * g2[r] * g2[n-r] % mod
+
+mod = 10**9+7 # 出力の制限
+N = 10**4 # n の最大（たぶん。TODO: 調べる）
+g1 = [1, 1] # 元テーブル
+g2 = [1, 1] # 逆元テーブル
+inverse = [0, 1] # 逆元テーブル計算用テーブル
+
+for i in range( 2, N + 1 ):
+    g1.append( ( g1[-1] * i ) % mod )
+    inverse.append( ( -inverse[mod % i] * (mod//i) ) % mod )
+    g2.append( (g2[-1] * inverse[-1]) % mod )
+
+# ex
+a = cmb(10, 2, mod)
+
+print(a)
+
+
+
+
+
+# %%
+# n 進数への変換
+
+def num_base10_to_num_baseN(num_base_10, base_N):
+    if num_base_10 < base_N:
+        return [num_base_10]
+    else:
+        result_list = num_base10_to_num_baseN(num_base_10 // base_N, base_N)
+        result_list.append(num_base_10 % base_N)
+        return result_list
+
+# ex
+print(num_base10_to_num_baseN(16, 3))
+
+
+
+
+
+# %%
+# 上記を26進数で行い、アルファベットで表現する
+# この時、26 = [1, 0] は "z" となる。つまり、0 がある場所は上の位から 1 を引いて 26 で表現する。
+# 26 = [0, 26] となる
+
+def num_base10_to_alpha(n):
+    x = num_base10_to_num_baseN(n, 26)
+
+    for i in range(len(x) - 1, 0, -1):
+        if x[i] <= 0:
+            x[i] += 26
+            x[i - 1] -= 1
+
+    return "".join([chr(96 + temp) for temp in x if temp != 0])
+
+# ex
+n_list = [1, 26, 27, 676, 677, 702, 703]
+
+for n in n_list:
+    x = num_base10_to_num_baseN(n, 26)
+
+    for i in range(len(x) - 1, 0, -1):
+        if x[i] <= 0:
+            x[i] += 26
+            x[i - 1] -= 1
+    
+    print("{} : {} : {} : {}".format(n, num_base10_to_num_baseN(n, 26), x, num_base10_to_alpha(n)))
+
+
+
+
 
 # %%
