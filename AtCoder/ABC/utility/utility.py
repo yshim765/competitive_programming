@@ -66,6 +66,21 @@ for l in itertools.combinations_with_replacement([x for x in range(1, m + 1)], n
 
 
 # %%
+# 長さnのbit全探索
+
+import itertools
+
+n = 5
+
+bit_n = list(itertools.product([0,1], repeat=n))
+
+print(bit_n)
+
+
+
+
+
+# %%
 # cumsum
 # それまでの総和を求める
 # l = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] -> cumsum_l = [1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
